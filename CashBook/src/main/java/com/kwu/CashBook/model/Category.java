@@ -1,15 +1,31 @@
 package com.kwu.CashBook.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-
-@Getter
-@Setter
-@NoArgsConstructor
 public class Category {
     private Long categoryId;
     private String name;
-    private String type; // 수입 or 지출
-}
+    private String type;
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+}
