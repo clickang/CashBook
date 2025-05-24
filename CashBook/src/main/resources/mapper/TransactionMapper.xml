@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kwu.CashBook.mapper.TransactionMapper">
+    <!-- 예시 -->
+    <select id="findAll" resultType="com.kwu.CashBook.model.Transaction">
+        SELECT * FROM transactions
+    </select>
+
+    <insert id="insert" parameterType="com.kwu.CashBook.model.Transaction">
+    INSERT INTO transactions (
+        id, transaction_date, item_name, amount, type, memo, category_id
+    )
+    VALUES (
+        trans_seq.NEXTVAL,
+        #{transactionDate, jdbcType=DATE},
+        #{itemName, jdbcType=VARCHAR},
+        #{amount, jdbcType=NUMERIC},
+        #{type, jdbcType=VARCHAR},
+        #{memo, jdbcType=VARCHAR},
+        #{categoryId, jdbcType=NUMERIC}
+    )
+</insert>
+
+</mapper>

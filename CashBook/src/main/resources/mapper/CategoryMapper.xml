@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kwu.CashBook.mapper.CategoryMapper">
+
+    <select id="findAll" resultType="com.kwu.CashBook.model.Category">
+        SELECT * FROM categories
+    </select>
+
+    <insert id="insert" parameterType="com.kwu.CashBook.model.Category">
+        INSERT INTO categories (category_id, name, type)
+        VALUES (categories_seq.NEXTVAL, #{name}, #{type})
+    </insert>
+
+</mapper>
