@@ -4,24 +4,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kwu.CashBook.mapper.TransactionMapper">
-    <!-- 예시 -->
-    <select id="findAll" resultType="com.kwu.CashBook.model.Transaction">
+
+    <!-- 명시적 매핑 설정 -->
+    <resultMap id="TransactionMap" type="com.kwu.CashBook.model.Transaction">
+        <id property="id" column="ID"/>
+        <result property="transactionDate" column="TRANSACTION_DATE"/>
+        <result property="itemName" column="ITEM_NAME"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="type" column="TYPE"/>
+        <result property="memo" column="MEMO"/>
+        <result property="categoryId" column="CATEGORY_ID"/>
+    </resultMap>
+
+    <!-- 전체 조회 -->
+    <select id="findAll" resultMap="TransactionMap">
         SELECT * FROM transactions
     </select>
 
+    <!-- 삽입 -->
     <insert id="insert" parameterType="com.kwu.CashBook.model.Transaction">
-    INSERT INTO transactions (
-        id, transaction_date, item_name, amount, type, memo, category_id
-    )
-    VALUES (
-        trans_seq.NEXTVAL,
-        #{transactionDate, jdbcType=DATE},
-        #{itemName, jdbcType=VARCHAR},
-        #{amount, jdbcType=NUMERIC},
-        #{type, jdbcType=VARCHAR},
-        #{memo, jdbcType=VARCHAR},
-        #{categoryId, jdbcType=NUMERIC}
-    )
-</insert>
+        INSERT INTO transactions (
+            id, transaction_date, item_name, amount, type, memo, category_id
+        )
+        VALUES (
+            trans_seq.NEXTVAL,
+            #{transactionDate, jdbcType=DATE},
+            #{itemName, jdbcType=VARCHAR},
+            #{amount, jdbcType=NUMERIC},
+            #{type, jdbcType=VARCHAR},
+            #{memo, jdbcType=VARCHAR},
+            #{categoryId, jdbcType=NUMERIC}
+        )
+    </insert>
 
 </mapper>

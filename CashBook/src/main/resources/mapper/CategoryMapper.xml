@@ -5,7 +5,14 @@
 
 <mapper namespace="com.kwu.CashBook.mapper.CategoryMapper">
 
-    <select id="findAll" resultType="com.kwu.CashBook.model.Category">
+    <!-- 명시적 필드 매핑 -->
+    <resultMap id="CategoryMap" type="com.kwu.CashBook.model.Category">
+        <id property="categoryId" column="CATEGORY_ID"/>
+        <result property="name" column="NAME"/>
+        <result property="type" column="TYPE"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="CategoryMap">
         SELECT * FROM categories
     </select>
 
