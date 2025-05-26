@@ -1,11 +1,49 @@
-<!doctype html>
-<meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 가계부 관리 시스템</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-	<div class = "div1">
-		Home 화면 입니다.
-	</div>
-	
-	<div class = "div2">
-		<a href= "http://localhost:8081/home" > Hello World! </a>
-	</div>
+    <div class="container">
+        <header>
+            <h1>💰 나의 가계부</h1>
+            <nav>
+                <button id="homeBtn" class="nav-btn active">홈</button>
+                <button id="addBtn" class="nav-btn">거래 추가</button>
+                <button id="statsBtn" class="nav-btn">통계</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- 홈 화면 -->
+            <section id="homeSection" class="section active">
+                <h2>최근 거래 내역</h2>
+                <div id="transactionList" class="transaction-list">
+                    <!-- 거래 목록이 여기에 표시됩니다 -->
+                </div>
+            </section>
+
+            <!-- 거래 추가 화면 -->
+            <section id="addSection" class="section">
+                <h2>새 거래 추가</h2>
+                <form id="transactionForm" class="form">
+                    <!-- 폼이 여기에 들어갑니다 -->
+                </form>
+            </section>
+
+            <!-- 통계 화면 -->
+            <section id="statsSection" class="section">
+                <h2>📊 통계</h2>
+                <div id="statisticsContent">
+                    <!-- 통계 차트와 데이터가 여기에 표시됩니다 -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
 </body>
+</html>
