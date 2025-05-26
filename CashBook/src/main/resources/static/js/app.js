@@ -8,9 +8,9 @@ const CATEGORY_API = '/categories';
 
 // DOM 로드 완료 후 실행
 document.addEventListener('DOMContentLoaded', function() {
-    initializeApp();
-    setupEventListeners();
-    loadData();
+    initializeApp();         // 섹션 초기 상태 설정
+    setupEventListeners();   // 버튼 이벤트 연결
+    loadData();              // 카테고리 + 거래내역 로드
 });
 
 // 앱 초기화
@@ -121,7 +121,7 @@ async function loadData() {
 // 카테고리 로드
 async function loadCategories() {
     try {
-        const response = await fetch(CATEGORY_API);
+        const response = await fetch(CATEGORY_API); // /categoried API 호출
         categories = await response.json();
         updateCategoryOptions();
     } catch (error) {
@@ -152,7 +152,7 @@ function updateCategoryOptions() {
 // 거래 내역 로드
 async function loadTransactions() {
     try {
-        const response = await fetch(API_BASE);
+        const response = await fetch(API_BASE);  // /transactions API 호출
         transactions = await response.json();
         displayTransactions();
     } catch (error) {
