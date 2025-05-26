@@ -5,6 +5,7 @@ import com.kwu.CashBook.model.Transaction;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/transactions")
@@ -37,6 +38,7 @@ public class TransactionController {
         mapper.delete(id);
     }
     
+    /* 세부 조회 기능 */
     // 특정 거래 조회
     @GetMapping("/{id}")
     public Transaction getById(@PathVariable("id") Long id) {
@@ -55,5 +57,18 @@ public class TransactionController {
     @GetMapping("/category/{categoryId}")
     public List<Transaction> getByCategory(@PathVariable("categoryId") Long categoryId) {
         return mapper.findByCategory(categoryId);
+    } 
+        
+    /* 통계 기능 */
+    // 월별 수입/지출 합계
+    @GetMapping("/summary/monthly")
+    public Map<String, Object> getMonthlySummary(@RequestParam("month") String month) {
+        return mapper.getMonthlySummary(month);
+    }
+
+    // 카테고리별 지출 통계
+    @GetMapping("/summary/category")
+    public List<Map<String, Object>> getCategorySummary() {
+        return mapper.getCategorySummary();
     }
 }

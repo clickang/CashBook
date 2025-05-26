@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+import java.util.Map;
 @Mapper
 public interface TransactionMapper {
     List<Transaction> findAll();
@@ -17,4 +17,7 @@ public interface TransactionMapper {
     Transaction findById(Long id);
     List<Transaction> findByDateRange(@Param("startDate") String startDate, @Param("endDate") String endDate);
     List<Transaction> findByCategory(Long categoryId);
+    
+    Map<String, Object> getMonthlySummary(@Param("month") String month);
+    List<Map<String, Object>> getCategorySummary();
 }
