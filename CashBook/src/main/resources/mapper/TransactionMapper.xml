@@ -20,6 +20,27 @@
     <select id="findAll" resultMap="TransactionMap">
         SELECT * FROM transactions
     </select>
+	
+	<!-- ID로 조회 -->
+	<select id="findById" parameterType="Long" resultMap="TransactionMap">
+	    SELECT * FROM transactions 
+	    WHERE id = #{id, jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 날짜 범위로 조회 -->
+	<select id="findByDateRange" resultMap="TransactionMap">
+	    SELECT * FROM transactions 
+	    WHERE transaction_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') 
+	                               AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+	    ORDER BY transaction_date DESC
+	</select>
+	
+	<!-- 카테고리별 조회 -->
+	<select id="findByCategory" parameterType="Long" resultMap="TransactionMap">
+	    SELECT * FROM transactions 
+	    WHERE category_id = #{categoryId, jdbcType=NUMERIC}
+	    ORDER BY transaction_date DESC
+	</select>
 
     <!-- 삽입 -->
     <insert id="insert" parameterType="com.kwu.CashBook.model.Transaction">

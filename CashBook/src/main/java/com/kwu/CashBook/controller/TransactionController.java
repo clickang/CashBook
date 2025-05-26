@@ -36,4 +36,24 @@ public class TransactionController {
     public void delete(@PathVariable("id") Long id) {
         mapper.delete(id);
     }
+    
+    // 특정 거래 조회
+    @GetMapping("/{id}")
+    public Transaction getById(@PathVariable("id") Long id) {
+        return mapper.findById(id);
+    }
+
+    // 날짜 범위로 거래 조회
+    @GetMapping("/search")
+    public List<Transaction> getByDateRange(
+        @RequestParam("startDate") String startDate, 
+        @RequestParam("endDate") String endDate) {
+        return mapper.findByDateRange(startDate, endDate);
+    }
+
+    // 카테고리별 거래 조회
+    @GetMapping("/category/{categoryId}")
+    public List<Transaction> getByCategory(@PathVariable("categoryId") Long categoryId) {
+        return mapper.findByCategory(categoryId);
+    }
 }
