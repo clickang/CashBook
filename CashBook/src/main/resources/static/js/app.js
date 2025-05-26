@@ -180,6 +180,9 @@ function displayTransactions() {
         const typeClass = transaction.type === '수입' ? 'income' : 'expense';
         const sign = transaction.type === '수입' ? '+' : '-';
         
+        // 날짜를 YYYY-MM-DD 형식으로 변환
+        const dateOnly = transaction.transactionDate.split('T')[0];
+        
         return `
             <div class="transaction-item ${typeClass}">
                 <div class="transaction-header">
@@ -189,7 +192,7 @@ function displayTransactions() {
                     </span>
                 </div>
                 <div class="transaction-details">
-                    📅 ${transaction.transactionDate} | 📁 ${categoryName} | 💭 ${transaction.memo || '메모 없음'}
+                    📅 ${dateOnly} | 📁 ${categoryName} | 💭 ${transaction.memo || '메모 없음'}
                 </div>
             </div>
         `;
@@ -287,15 +290,24 @@ function displayStatistics(summary, categoryStats) {
         
         <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 15px;">
             <h3 style="margin-bottom: 1rem; color: #495057;">📈 카테고리별 통계</h3>
-            ${categoryStats.length > 0 ? 
-                categoryStats.map(stat => `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: white; margin-bottom: 0.5rem; border-radius: 8px; border-left: 4px solid ${stat.type === '수입' ? '#51cf66' : '#ff6b6b'};">
-                        <span>${stat.categoryName || '카테고리' + stat.categoryId} (${stat.type})</span>
-                        <strong style="color: ${stat.type === '수입' ? '#51cf66' : '#ff6b6b'};">
-                            ${Number(stat.totalAmount).toLocaleString()}원 (${stat.transactionCount}건)
-                        </strong>
-                    </div>
-                `).join('') 
+            ${categoryStats && categoryStats.length > 0 ? 
+                categoryStats.map(stat => {
+                    // 대문자로 접근
+                    const categoryId = stat.CATEGORYID || stat.categoryId;
+                    const categoryName = getCategoryName(categoryId) || `카테고리 ${categoryId}`;
+                    const totalAmount = Number(stat.TOTALAMOUNT || stat.totalAmount) || 0;
+                    const transactionCount = Number(stat.TRANSACTIONCOUNT || stat.transactionCount) || 0;
+                    const type = stat.TYPE || stat.type || '미분류';
+                    
+                    return `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: white; margin-bottom: 0.5rem; border-radius: 8px; border-left: 4px solid ${type === '수입' ? '#51cf66' : '#ff6b6b'};">
+                            <span>${categoryName} (${type})</span>
+                            <strong style="color: ${type === '수입' ? '#51cf66' : '#ff6b6b'};">
+                                ${totalAmount.toLocaleString()}원 (${transactionCount}건)
+                            </strong>
+                        </div>
+                    `;
+                }).join('') 
                 : '<p style="text-align: center; color: #6c757d;">통계 데이터가 없습니다.</p>'
             }
         </div>
