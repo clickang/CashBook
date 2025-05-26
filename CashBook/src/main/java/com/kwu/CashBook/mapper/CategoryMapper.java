@@ -9,4 +9,6 @@ import java.util.List;
 public interface CategoryMapper {
     List<Category> findAll();
     void insert(Category category);
+    void update(Category category);
+    void delete(Long id);
 }

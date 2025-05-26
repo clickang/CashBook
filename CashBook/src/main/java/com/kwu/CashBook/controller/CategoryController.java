@@ -25,4 +25,15 @@ public class CategoryController {
     public void insert(@RequestBody Category category) {
         mapper.insert(category);
     }
+    
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") Long id, @RequestBody Category category) {
+        category.setCategoryId(id); // ID 설정
+        mapper.update(category);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        mapper.delete(id);
+    }
 }

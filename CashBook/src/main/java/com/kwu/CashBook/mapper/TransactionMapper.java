@@ -10,4 +10,6 @@ import java.util.List;
 public interface TransactionMapper {
     List<Transaction> findAll();
     void insert(Transaction transaction);
+    void update(Transaction transaction);
+    void delete(Long id);
 }

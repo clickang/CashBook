@@ -25,4 +25,15 @@ public class TransactionController {
     public void insert(@RequestBody Transaction transaction) {
         mapper.insert(transaction);
     }
+    
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") Long id, @RequestBody Transaction transaction) {
+        transaction.setId(id); 
+        mapper.update(transaction);
+    }
+    
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        mapper.delete(id);
+    }
 }

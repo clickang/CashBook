@@ -36,5 +36,20 @@
             #{categoryId, jdbcType=NUMERIC}
         )
     </insert>
-
+    
+	<update id="update" parameterType="com.kwu.CashBook.model.Transaction">
+    UPDATE transactions SET
+        transaction_date = #{transactionDate, jdbcType=DATE},
+        item_name = #{itemName, jdbcType=VARCHAR},
+        amount = #{amount, jdbcType=NUMERIC},
+        type = #{type, jdbcType=VARCHAR},
+        memo = #{memo, jdbcType=VARCHAR},
+        category_id = #{categoryId, jdbcType=NUMERIC}
+    WHERE id = #{id, jdbcType=NUMERIC}
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+	    DELETE FROM transactions 
+	    WHERE id = #{id, jdbcType=NUMERIC}
+	</delete>
 </mapper>

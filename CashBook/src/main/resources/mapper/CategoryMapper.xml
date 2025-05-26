@@ -20,5 +20,17 @@
         INSERT INTO categories (category_id, name, type)
         VALUES (categories_seq.NEXTVAL, #{name}, #{type})
     </insert>
-
+    
+	
+	<update id="update" parameterType="com.kwu.CashBook.model.Category">
+	    UPDATE categories SET
+	        name = #{name, jdbcType=VARCHAR},
+	        type = #{type, jdbcType=VARCHAR}
+	    WHERE category_id = #{categoryId, jdbcType=NUMERIC}
+	</update>
+		
+	<delete id="delete" parameterType="Long">
+	    DELETE FROM categories 
+	    WHERE category_id = #{id, jdbcType=NUMERIC}
+	</delete>
 </mapper>
