@@ -39,12 +39,7 @@ public class TransactionController {
     }
     
     /* 세부 조회 기능 */
-    // 특정 거래 조회
-    @GetMapping("/{id}")
-    public Transaction getById(@PathVariable("id") Long id) {
-        return mapper.findById(id);
-    }
-
+    
     // 날짜 범위로 거래 조회
     @GetMapping("/search")
     public List<Transaction> getByDateRange(
