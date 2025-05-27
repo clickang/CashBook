@@ -22,14 +22,22 @@
         ORDER BY transaction_date DESC
     </select>
 
+	<!-- 전체 조회 -->
+    <select id="findById" parameterType="Long" resultMap="TransactionMap">
+    	SELECT * FROM transactions WHERE id = #{id}
+	</select>
+
 	
 	<!-- 날짜 범위로 조회 -->
 	<select id="findByDateRange" resultMap="TransactionMap">
+	    <![CDATA[
 	    SELECT * FROM transactions 
-	    WHERE transaction_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') 
-	                               AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+	    WHERE transaction_date >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+	      AND transaction_date < TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 	    ORDER BY transaction_date DESC
+	    ]]>
 	</select>
+
 	
 	<!-- 카테고리별 조회 -->
 	<select id="findByCategory" parameterType="Long" resultMap="TransactionMap">

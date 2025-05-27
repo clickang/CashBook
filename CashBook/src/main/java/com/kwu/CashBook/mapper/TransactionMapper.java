@@ -14,6 +14,7 @@ public interface TransactionMapper {
     void update(Transaction transaction);
     void delete(Long id);
     
+    Transaction findById(Long id);
     List<Transaction> findByDateRange(@Param("startDate") String startDate, @Param("endDate") String endDate);
     List<Transaction> findByCategory(Long categoryId);
     
