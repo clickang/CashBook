@@ -87,7 +87,7 @@ main {
 .section h2 {
     color: #4facfe;
     font-size: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
 }
 
@@ -296,4 +296,8 @@ main {
     .home-header .left {
         justify-content: center;
     }
+}
+
+.left.date-filter {
+	margin-bottom: 1.5rem;
 }
