@@ -18,7 +18,8 @@
 
     <!-- 전체 조회 -->
     <select id="findAll" resultMap="TransactionMap">
-        SELECT * FROM transactions
+        SELECT * FROM transactions 
+        order by transaction_date DESC
     </select>
 	
 	<!-- ID로 조회 -->
