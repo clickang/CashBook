@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeApp() {
     showSection('homeSection');
     createTransactionForm();
+	
+	// 시작일: 3년 전, 종료일: 오늘
+    const today = new Date();
+    const past = new Date();
+    past.setFullYear(today.getFullYear() - 3);
+
+    document.getElementById('filterStartDate').value = past.toISOString().split('T')[0];
+    document.getElementById('filterEndDate').value = today.toISOString().split('T')[0];
 }
 
 // 이벤트 리스너 설정
@@ -35,6 +43,15 @@ function setupEventListeners() {
         showSection('statsSection');
         loadStatistics();
     });
+	
+	// 날짜 필터 검색 버튼
+	const filterBtn = document.getElementById('filterBtn');
+	if (filterBtn) {
+	    filterBtn.addEventListener('click', () => {
+	        loadTransactions();
+	    });
+	}
+
 }
 
 // 섹션 전환
@@ -152,7 +169,17 @@ function updateCategoryOptions() {
 // 거래 내역 로드
 async function loadTransactions() {
     try {
-        const response = await fetch(API_BASE);  // /transactions API 호출
+        const startInput = document.getElementById('filterStartDate');
+        const endInput = document.getElementById('filterEndDate');
+
+        let url = API_BASE;
+
+        // 날짜가 선택된 경우 쿼리 파라미터 추가
+        if (startInput && startInput.value && endInput && endInput.value) {
+            url += `?startDate=${startInput.value}&endDate=${endInput.value}`;
+        }
+
+        const response = await fetch(url);
         transactions = await response.json();
         displayTransactions();
     } catch (error) {
@@ -160,6 +187,7 @@ async function loadTransactions() {
         showNotification('거래 내역을 불러오는데 실패했습니다.', 'error');
     }
 }
+
 
 // 거래 내역 표시
 function displayTransactions() {
