@@ -236,3 +236,64 @@ main {
         padding: 1rem;
     }
 }
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.home-header .left {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.home-header .center {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.home-header .center h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #4facfe;
+}
+
+.home-header .right {
+    flex: 1 1 auto;
+}
+
+/* 날짜 필터 스타일은 기존과 동일하게 유지 */
+.date-filter label {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.date-filter input {
+    padding: 0.5rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .home-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+    .home-header .left,
+    .home-header .right,
+    .home-header .center {
+        flex: unset;
+        width: 100%;
+    }
+    .home-header .left {
+        justify-content: center;
+    }
+}

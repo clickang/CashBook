@@ -20,13 +20,29 @@
         <main>
             <!-- 홈 화면 -->
             <section id="homeSection" class="section active">
-                <h2>최근 거래 내역</h2>
-                <div id="transactionList" class="transaction-list">
-                    <!-- 거래 목록이 여기에 표시됩니다 -->
-                    <div id="transactionFormButtons"></div> <!-- 👈 버튼 넣을 영역 추가 -->
-                </div>
-            </section>
-            
+			    <div class="home-header">
+			        <div class="left date-filter">
+			            <label>
+			                <input type="date" id="filterStartDate">
+			            </label>
+			            <label>
+			                ~
+			                <input type="date" id="filterEndDate">
+			            </label>
+			            <button class="btn" id="filterBtn" style="width: auto; padding: 0.5rem 1rem;">🔍 조회</button>
+			        </div>
+			        <div class="center">
+			            <h2>최근 거래 내역</h2>
+			        </div>
+			        <div class="right"></div> <!-- 빈 영역 -->
+			    </div>
+			
+			    <div id="transactionList" class="transaction-list">
+			        <!-- 거래 목록이 여기에 표시됩니다 -->
+             <div id="transactionFormButtons"></div> <!-- 👈 버튼 넣을 영역 추가 -->
+			    </div>
+			</section>
+
             <!-- 거래 추가 화면 -->
 			<section id="addSection" class="section">
     			<h2>새 거래 추가</h2>
