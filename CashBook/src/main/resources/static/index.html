@@ -39,17 +39,19 @@
 			
 			    <div id="transactionList" class="transaction-list">
 			        <!-- 거래 목록이 여기에 표시됩니다 -->
+             <div id="transactionFormButtons"></div> <!-- 👈 버튼 넣을 영역 추가 -->
 			    </div>
 			</section>
 
-
             <!-- 거래 추가 화면 -->
-            <section id="addSection" class="section">
-                <h2>새 거래 추가</h2>
-                <form id="transactionForm" class="form">
-                    <!-- 폼이 여기에 들어갑니다 -->
-                </form>
-            </section>
+			<section id="addSection" class="section">
+    			<h2>새 거래 추가</h2>
+    			<form id="transactionForm" class="form">
+        			<!-- JS에서 폼 필드가 채워짐 -->
+        			<div id="transactionFormButtons"></div> <!-- ✅ 여기에 있어야 JS가 찾을 수 있음 -->
+    			</form>
+			</section>
+            
 
             <!-- 통계 화면 -->
             <section id="statsSection" class="section">

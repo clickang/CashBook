@@ -205,6 +205,18 @@ main {
     box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
 }
 
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.form-buttons .btn {
+    width: 48%;
+}
+
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
     header h1 {
