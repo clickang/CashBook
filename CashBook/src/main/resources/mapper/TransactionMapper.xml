@@ -19,14 +19,9 @@
     <!-- 전체 조회 -->
     <select id="findAll" resultMap="TransactionMap">
         SELECT * FROM transactions 
-        order by transaction_date DESC
+        ORDER BY transaction_date DESC
     </select>
-	
-	<!-- ID로 조회 -->
-	<select id="findById" parameterType="Long" resultMap="TransactionMap">
-	    SELECT * FROM transactions 
-	    WHERE id = #{id, jdbcType=NUMERIC}
-	</select>
+
 	
 	<!-- 날짜 범위로 조회 -->
 	<select id="findByDateRange" resultMap="TransactionMap">
