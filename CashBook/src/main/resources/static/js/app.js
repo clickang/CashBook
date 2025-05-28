@@ -6,6 +6,10 @@ let categories = [];
 const API_BASE = '/transactions';
 const CATEGORY_API = '/categories';
 
+// 기본 필터값
+let selectedTypeFilter = '전체'; 
+
+
 // DOM 로드 완료 후 실행
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();         // 섹션 초기 상태 설정
@@ -54,6 +58,15 @@ function setupEventListeners() {
 	        loadTransactions();
 	    });
 	}
+	
+	// 수입/지출/전체 라디오 필터 이벤트
+	document.querySelectorAll('input[name="typeFilter"]').forEach(radio => {
+	    radio.addEventListener('change', () => {
+	        selectedTypeFilter = radio.value; // 선택된 필터 값 저장
+	        displayTransactions();            // 필터 반영하여 목록 갱신
+	    });
+	});
+
 
 }
 
@@ -223,17 +236,21 @@ async function loadTransactions() {
 function displayTransactions() {
     const container = document.getElementById('transactionList');
 
-    if (transactions.length === 0) {
+    const filtered = transactions.filter(transaction => {
+        return selectedTypeFilter === '전체' || transaction.type === selectedTypeFilter;
+    });
+
+    if (filtered.length === 0) {
         container.innerHTML = `
             <div style="text-align: center; padding: 3rem; color: #6c757d;">
-                <h3>😊 아직 거래 내역이 없습니다</h3>
-                <p>첫 번째 거래를 추가해보세요!</p>
+                <h3>😊 선택한 항목에 해당하는 거래가 없습니다</h3>
+                <p>다른 조건을 선택해 보세요.</p>
             </div>
         `;
         return;
     }
 
-    container.innerHTML = transactions.map(transaction => {
+    container.innerHTML = filtered.map(transaction => {
         const categoryName = getCategoryName(transaction.categoryId);
         const typeClass = transaction.type === '수입' ? 'income' : 'expense';
         const sign = transaction.type === '수입' ? '+' : '-';
@@ -254,6 +271,7 @@ function displayTransactions() {
         `;
     }).join('');
 }
+
 
 
 function editTransaction(id) {

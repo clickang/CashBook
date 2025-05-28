@@ -207,10 +207,11 @@ main {
 
 .form-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
+
 
 .form-buttons .btn {
     width: 48%;
@@ -301,3 +302,39 @@ main {
 .left.date-filter {
 	margin-bottom: 1.5rem;
 }
+
+/* 라디오 버튼 숨김 */
+.radio-tab input[type="radio"] {
+    display: none;
+}
+
+/* 기본 탭 스타일 (고정 크기 적용) */
+.radio-tab span {
+    display: inline-block;
+    width: 60px; /* 너비 고정 */
+    height: 36px; /* 높이 고정 */
+    line-height: 36px; /* 텍스트 수직 정렬 */
+    text-align: center;
+    background-color: #e9ecef;  /* 비활성 회색 */
+    color: #495057;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: 500;
+    font-size: 0.95rem;
+    user-select: none;
+    margin-bottom: 1.5rem;
+}
+
+/* 선택된 항목에만 gradient 적용 */
+.radio-tab input[type="radio"]:checked + span {
+    background: linear-gradient(to right, #4facfe, #00f2fe);  /* 조회 버튼과 동일 */
+    color: white;
+    font-weight: bold;
+}
+
+/* hover 효과 (선택되지 않은 항목만) */
+.radio-tab input[type="radio"]:not(:checked) + span:hover {
+    background-color: #dee2e6;
+}
+

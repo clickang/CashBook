@@ -25,7 +25,9 @@
 		            <h2>최근 거래 내역</h2>
 		        </div>
 		        
-		        <div class="left date-filter">
+		        <div class="filter-row" style="display: flex; justify-content: space-between; align-items: center;">
+			        <!-- 날짜 필터 -->
+			        <div class="left date-filter">
 			            <label>
 			                <input type="date" id="filterStartDate">
 			            </label>
@@ -35,6 +37,25 @@
 			            </label>
 			            <button class="btn" id="filterBtn" style="width: auto; padding: 0.5rem 1rem;">🔍 조회</button>
 			        </div>
+			
+			        <!-- 유형 필터 (수입/지출/전체) -->
+					<div class="right type-filter" style="display: flex; gap: 0.5rem;">
+					    <label class="radio-tab">
+					        <input type="radio" name="typeFilter" value="전체" checked>
+					        <span>전체</span>
+					    </label>
+					    <label class="radio-tab">
+					        <input type="radio" name="typeFilter" value="수입">
+					        <span>수입</span>
+					    </label>
+					    <label class="radio-tab">
+					        <input type="radio" name="typeFilter" value="지출">
+					        <span>지출</span>
+					    </label>
+					</div>
+
+			    </div>
+								        
 			
 			    <div id="transactionList" class="transaction-list">
 			        <!-- 거래 목록이 여기에 표시됩니다 -->
