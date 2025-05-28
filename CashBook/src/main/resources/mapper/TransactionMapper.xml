@@ -30,12 +30,13 @@
 	
 	<!-- 날짜 범위로 조회 -->
 	<select id="findByDateRange" resultMap="TransactionMap">
-	    <![CDATA[
-	    SELECT * FROM transactions 
-	    WHERE transaction_date >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
-	      AND transaction_date < TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
-	    ORDER BY transaction_date DESC, id DESC
-	    ]]>
+    	<![CDATA[
+    	SELECT * FROM transactions 
+    	WHERE user_id = #{userId}
+      		AND transaction_date >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+      		AND transaction_date < TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+    	ORDER BY transaction_date DESC, id DESC
+    	]]>
 	</select>
 
 	
@@ -48,19 +49,20 @@
 
     <!-- 삽입 -->
     <insert id="insert" parameterType="com.kwu.CashBook.model.Transaction">
-        INSERT INTO transactions (
-            id, transaction_date, item_name, amount, type, memo, category_id
-        )
-        VALUES (
-            trans_seq.NEXTVAL,
-            #{transactionDate, jdbcType=DATE},
-            #{itemName, jdbcType=VARCHAR},
-            #{amount, jdbcType=NUMERIC},
-            #{type, jdbcType=VARCHAR},
-            #{memo, jdbcType=VARCHAR},
-            #{categoryId, jdbcType=NUMERIC}
-        )
-    </insert>
+    	INSERT INTO transactions (
+        	id, transaction_date, item_name, amount, type, memo, category_id, user_id
+    	)
+    	VALUES (
+        	trans_seq.NEXTVAL,
+        	#{transactionDate, jdbcType=DATE},
+        	#{itemName, jdbcType=VARCHAR},
+        	#{amount, jdbcType=NUMERIC},
+        	#{type, jdbcType=VARCHAR},
+        	#{memo, jdbcType=VARCHAR},
+        	#{categoryId, jdbcType=NUMERIC},
+        	#{userId, jdbcType=NUMERIC}
+    	)
+	</insert>
     
 	<update id="update" parameterType="com.kwu.CashBook.model.Transaction">
     UPDATE transactions SET

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>💰 나의 가계부 - 시작하기</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="welcome-container">
+    	<h1 class="logo" style="color: #4facfe;">💰 나의 가계부</h1>
+
+    	<div class="form-buttons" style="justify-content: center;">
+        	<button class="btn" onclick="showForm('login')">로그인</button>
+        	<button class="btn" onclick="showForm('register')">회원가입</button>
+    	</div>
+
+    	<div id="formContainer" style="margin-top: 2rem;"></div>
+	</div>
+
+
+    <script src="js/boarding.js">
+    <form method="post" action="/login" class="form">
+    	<h2>로그인</h2>
+    	<input type="text" name="loginId" placeholder="아이디" required />
+    	<input type="password" name="password" placeholder="비밀번호" required />
+    	<button type="submit" class="btn">로그인</button>
+	</form>
+    </script>
+</body>
+</html>

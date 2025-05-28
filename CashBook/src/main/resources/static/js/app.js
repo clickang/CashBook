@@ -481,3 +481,22 @@ function showNotification(message, type = 'info') {
         notification.remove();
     }, 3000);
 }
+
+async function loadUserInfo() {
+    try {
+        const res = await fetch("/session-user");
+        if (res.ok) {
+            const user = await res.json();
+            document.getElementById('userInfo').innerHTML =
+              `👋 ${user.username}님 <button onclick="logout()">로그아웃</button>`;
+        }
+    } catch (e) {
+        console.error("세션 정보 불러오기 실패", e);
+    }
+}
+
+function logout() {
+    window.location.href = "/logout";
+}
+
+document.addEventListener('DOMContentLoaded', loadUserInfo);
