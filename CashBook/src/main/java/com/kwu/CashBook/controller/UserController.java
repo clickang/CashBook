@@ -60,4 +60,10 @@ public class UserController {
     public User getSessionUser(HttpSession session) {
         return (User) session.getAttribute("user");
     }
+    
+    @GetMapping("/logout")
+    public void logout(HttpSession session, HttpServletResponse response) throws IOException {
+        session.invalidate(); // 세션 무효화 (로그아웃 처리)
+        response.sendRedirect("/Boarding.html"); // 로그인 화면으로 리다이렉트
+    }
 }
