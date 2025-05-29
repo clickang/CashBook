@@ -10,6 +10,8 @@ public class Transaction {
     private String type;
     private String memo;
     private Long categoryId;
+    
+    private Long userId;
 
     public Transaction() {
         // 기본 생성자
@@ -69,5 +71,13 @@ public class Transaction {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+    
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

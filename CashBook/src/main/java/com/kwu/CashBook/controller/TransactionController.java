@@ -1,6 +1,9 @@
 package com.kwu.CashBook.controller;
 
+import com.kwu.CashBook.model.User;
 import com.kwu.CashBook.mapper.TransactionMapper;
+import jakarta.servlet.http.HttpSession;
+
 import com.kwu.CashBook.model.Transaction;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,28 +24,33 @@ public class TransactionController {
 
     @GetMapping
     public List<Transaction> getAll(
-    		@RequestParam(name = "startDate", required = false) String startDate,
-    	    @RequestParam(name = "endDate", required = false) String endDate) {
+            @RequestParam(name = "startDate", required = false) String startDate,
+            @RequestParam(name = "endDate", required = false) String endDate,
+            HttpSession session
+    ) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return List.of(); // 로그인 안 했으면 빈 리스트
 
-    	    // 오늘 날짜 계산
-    	    LocalDate today = LocalDate.now();
-    	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    	    // 기본값: 오늘 ~ 3년 전
-    	    if (startDate == null || startDate.isEmpty()) {
-    	        startDate = today.minusYears(3).format(formatter);
-    	    }
-    	    if (endDate == null || endDate.isEmpty()) {
-    	        endDate = today.format(formatter);
-    	    }
-    	   
-    	    return mapper.findByDateRange(startDate, endDate);
-    	}
+        if (startDate == null || startDate.isEmpty()) {
+            startDate = today.minusYears(3).format(formatter);
+        }
+        if (endDate == null || endDate.isEmpty()) {
+            endDate = today.format(formatter);
+        }
 
-    @PostMapping
-    public void insert(@RequestBody Transaction transaction) {
-        mapper.insert(transaction);
+        return mapper.findByDateRange(user.getUserId(), startDate, endDate);
     }
+    
+    @PostMapping
+    public void insert(@RequestBody Transaction transaction, HttpSession session) {
+        User user = (User) session.getAttribute("user"); // 로그인한 사용자
+        transaction.setUserId(user.getUserId());         // 거래에 userId 세팅
+        mapper.insert(transaction);                      // DB에 삽입
+    }
+
     
     @PutMapping("/{id}")
     public void update(@PathVariable("id") Long id, @RequestBody Transaction transaction) {
@@ -65,10 +73,16 @@ public class TransactionController {
     // 날짜 범위로 거래 조회
     @GetMapping("/search")
     public List<Transaction> getByDateRange(
-        @RequestParam("startDate") String startDate, 
-        @RequestParam("endDate") String endDate) {
-        return mapper.findByDateRange(startDate, endDate);
+            @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate,
+            HttpSession session
+    ) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return List.of();
+
+        return mapper.findByDateRange(user.getUserId(), startDate, endDate);
     }
+
 
     // 카테고리별 거래 조회
     @GetMapping("/category/{categoryId}")

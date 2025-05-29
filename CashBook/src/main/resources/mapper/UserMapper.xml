@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kwu.CashBook.mapper.UserMapper">
+
+    <resultMap id="UserMap" type="com.kwu.CashBook.model.User">
+        <id property="userId" column="USER_ID"/>
+        <result property="username" column="USERNAME"/>
+        <result property="email" column="EMAIL"/>
+        <result property="loginId" column="LOGIN_ID"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="createdAt" column="CREATED_AT"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="User">
+        INSERT INTO users (user_id, username, email, login_id, password)
+        VALUES (users_seq.NEXTVAL, #{username}, #{email}, #{loginId}, #{password})
+    </insert>
+
+    <select id="findByLoginId" parameterType="String" resultMap="UserMap">
+        SELECT * FROM users WHERE login_id = #{loginId}
+    </select>
+
+</mapper>

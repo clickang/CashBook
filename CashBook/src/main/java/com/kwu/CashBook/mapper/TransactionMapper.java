@@ -1,6 +1,6 @@
 package com.kwu.CashBook.mapper;
 
-
+import org.apache.ibatis.annotations.Param;
 import com.kwu.CashBook.model.Transaction;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +15,9 @@ public interface TransactionMapper {
     void delete(Long id);
     
     Transaction findById(Long id);
-    List<Transaction> findByDateRange(@Param("startDate") String startDate, @Param("endDate") String endDate);
+    List<Transaction> findByDateRange(@Param("userId") Long userId,
+            @Param("startDate") String startDate,
+            @Param("endDate") String endDate);
     List<Transaction> findByCategory(Long categoryId);
     
     Map<String, Object> getMonthlySummary(@Param("month") String month);
