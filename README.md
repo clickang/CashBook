@@ -47,6 +47,58 @@ cd CashBook
 
 > 또는 `CashBookApplication.java`를 IDE(Spring Tool Suite, IntelliJ 등)에서 실행
 
+### 3. DB 스키마 생성
+- Oracle 11g xe 버전 필요
+
+```bash
+-- 1. 카테고리 테이블
+CREATE TABLE categories (
+    category_id NUMBER PRIMARY KEY,
+    name VARCHAR2(50) NOT NULL,
+    type VARCHAR2(10) CHECK (type IN ('수입', '지출')), -- 항목이 수입인지 지출인지 구분
+    CONSTRAINT unique_category_name_type UNIQUE (name, type)
+);
+
+-- 2. 사용자 테이블
+CREATE TABLE users (
+    user_id     NUMBER PRIMARY KEY,
+    username    VARCHAR2(100) NOT NULL,
+    email       VARCHAR2(200) NOT NULL,
+    login_id    VARCHAR2(50)  NOT NULL UNIQUE,
+    password    VARCHAR2(100) NOT NULL,
+    created_at  DATE DEFAULT SYSDATE
+);
+
+-- 3. 거래 테이블
+CREATE TABLE transactions (
+    id NUMBER PRIMARY KEY,
+    transaction_date DATE NOT NULL,
+    item_name VARCHAR2(100) NOT NULL,
+    amount NUMBER NOT NULL,
+    type VARCHAR2(10) CHECK (type IN ('수입', '지출')), -- 중복이지만 직관성을 위해 유지 가능
+    memo VARCHAR2(500),
+    user_id NUMBER REFERENCES users(user_id),
+    category_id NUMBER REFERENCES categories(category_id)
+);
+
+-- 4. 거래 ID, 카테고리 ID, 사용자 ID 자동 증가 시퀀스
+CREATE SEQUENCE trans_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE categories_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+CREATE SEQUENCE users_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
+
+```
 ---
 
 ## 🌐 주요 기능
