@@ -93,13 +93,18 @@ public class TransactionController {
     /* 통계 기능 */
     // 월별 수입/지출 합계
     @GetMapping("/summary/monthly")
-    public Map<String, Object> getMonthlySummary(@RequestParam("month") String month) {
-        return mapper.getMonthlySummary(month);
+    public Map<String, Object> getMonthlySummary(@RequestParam("month") String month, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return Map.of();
+        return mapper.getMonthlySummary(month, user.getUserId());
     }
 
     // 카테고리별 지출 통계
     @GetMapping("/summary/category")
-    public List<Map<String, Object>> getCategorySummary() {
-        return mapper.getCategorySummary();
+    public List<Map<String, Object>> getCategorySummary(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) return List.of();
+        return mapper.getCategorySummary(user.getUserId());
     }
+
 }

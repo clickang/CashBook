@@ -20,6 +20,6 @@ public interface TransactionMapper {
             @Param("endDate") String endDate);
     List<Transaction> findByCategory(Long categoryId);
     
-    Map<String, Object> getMonthlySummary(@Param("month") String month);
-    List<Map<String, Object>> getCategorySummary();
+    Map<String, Object> getMonthlySummary(@Param("month") String month, @Param("userId") Long userId);
+    List<Map<String, Object>> getCategorySummary(@Param("userId") Long userId);
 }
