@@ -5,6 +5,11 @@
 function showForm(type) {
     const container = document.getElementById('formContainer');
 
+    const buttons = document.querySelector('.form-buttons');
+    if (buttons) {
+        buttons.style.display = 'none';
+    }
+
     let formHtml = `
         <form method="post" action="${type === 'login' ? '/login' : '/register'}" class="form">
             <h2>${type === 'login' ? '로그인' : '회원가입'}</h2>
@@ -40,6 +45,7 @@ function showForm(type) {
 
     container.innerHTML = formHtml;
 }
+
 
 async function login(event) {
     event.preventDefault();
