@@ -82,24 +82,27 @@
 	
 	<!-- 월별 수입/지출 합계 -->
 	<select id="getMonthlySummary" resultType="map">
-	    SELECT 
-	        SUM(CASE WHEN type = '수입' THEN amount ELSE 0 END) as "income",
-	        SUM(CASE WHEN type = '지출' THEN amount ELSE 0 END) as "expense", 
-	        COUNT(*) as "totalCount"
-	    FROM transactions 
-	    WHERE TO_CHAR(transaction_date, 'YYYY-MM') = #{month}
+    	SELECT 
+        	SUM(CASE WHEN type = '수입' THEN amount ELSE 0 END) as "income",
+        	SUM(CASE WHEN type = '지출' THEN amount ELSE 0 END) as "expense", 
+        	COUNT(*) as "totalCount"
+    	FROM transactions 
+    	WHERE TO_CHAR(transaction_date, 'YYYY-MM') = #{month}
+      		AND user_id = #{userId}
 	</select>
+
 	
 	<!-- 카테고리별 통계 -->
 	<select id="getCategorySummary" resultType="map">
-	    SELECT 
-	        category_id as categoryId,
-	        type,
-	        SUM(amount) as totalAmount,
-	        COUNT(id) as transactionCount
-	    FROM transactions
-	    WHERE category_id IS NOT NULL
-	    GROUP BY category_id, type
-	    ORDER BY totalAmount DESC
+    	SELECT 
+        	category_id as categoryId,
+        	type,
+        	SUM(amount) as totalAmount,
+        	COUNT(id) as transactionCount
+    	FROM transactions
+    	WHERE category_id IS NOT NULL
+      		AND user_id = #{userId}
+    	GROUP BY category_id, type
+    	ORDER BY totalAmount DESC
 	</select>
 </mapper>

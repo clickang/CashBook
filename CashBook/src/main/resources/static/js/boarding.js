@@ -4,8 +4,21 @@
 
 function showForm(type) {
     const container = document.getElementById('formContainer');
+    container.innerHTML = ''; // 기존 폼 초기화
+	
+	const buttons = document.querySelector('.form-buttons');
+	    if (buttons) {
+	        buttons.style.display = 'none';
+	    }
+
+    let errorMessage = '';
+    const params = new URLSearchParams(location.search);
+    if (params.get('error') === 'true' && type === 'login') {
+        errorMessage = `<p class="error-msg">⚠️ 유효하지 않은 아이디 또는 비밀번호입니다.</p>`;
+    }
 
     let formHtml = `
+        ${errorMessage}
         <form method="post" action="${type === 'login' ? '/login' : '/register'}" class="form">
             <h2>${type === 'login' ? '로그인' : '회원가입'}</h2>
     `;
@@ -59,4 +72,12 @@ async function register(event) {
     // username, email 등 수집해서 /register로 POST
 }
 
+// 페이지 로드 시 URL 파라미터에 따라 자동으로 로그인 폼 열기
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const hasError = params.get("error") === "true";
 
+    if (hasError) {
+        showForm("login"); // 로그인 폼 자동 표시
+    }
+});
