@@ -50,11 +50,13 @@ public class UserController {
 
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user);
-            response.sendRedirect("/index.html"); // ✅ 로그인 성공 시 홈화면으로 이동
+            response.sendRedirect("/index.html");
         } else {
-            response.sendRedirect("/Boarding.html"); // ❌ 로그인 실패 시 다시 로그인 화면으로
+        	// 실패 시
+            response.sendRedirect("/Boarding.html?error=true");
         }
     }
+
     
     @GetMapping("/session-user")
     public User getSessionUser(HttpSession session) {
